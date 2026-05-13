@@ -6,6 +6,10 @@ import com.utilities.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class Customer {
     public Customer() {
@@ -43,27 +47,10 @@ public class Customer {
     }
 
     public void replaceTheFirstName(String newFirstName) {
-        BrowserUtils.waitForVisibilityOfElement(firstNameInput);
+
+        BrowserUtils.waitForClickAbility(firstNameInput);
         firstNameInput.click();
-        BrowserUtils.waitForTime(1);
-        firstNameInput.clear();
-        BrowserUtils.waitForTime(1);
-        String currentValue = firstNameInput.getAttribute("value");
-        if (currentValue == null || currentValue.isEmpty()) {
-            firstNameInput.sendKeys(newFirstName);
-        } else {
-            firstNameInput.click();
-            BrowserUtils.waitForTime(1);
-            firstNameInput.sendKeys(Keys.CONTROL + "a");
-            firstNameInput.sendKeys(Keys.DELETE);
-            BrowserUtils.waitForTime(1);
-            currentValue = firstNameInput.getAttribute("value");
-            if (currentValue == null || currentValue.isEmpty()) {
-                firstNameInput.sendKeys(newFirstName);
-            } else {
-                throw new IllegalStateException("The input field is still not empty after the second clear.");
-            }
-        }
+        firstNameInput.sendKeys(Keys.chord(Keys.CONTROL, "a"), newFirstName);
     }
 
     public String getUserDetailsName() {
