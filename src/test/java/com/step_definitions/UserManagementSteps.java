@@ -4,7 +4,6 @@ import com.pages.Customer;
 import com.pages.HeaderPage;
 import com.pages.UserOverviewPage;
 import com.pages.LoginPage;
-import com.utilities.BrowserUtils;
 import com.utilities.ConfigurationReader;
 import com.utilities.Driver;
 import io.cucumber.java.en.Given;
@@ -52,7 +51,6 @@ public class UserManagementSteps {
     }
     @Then("The user's full name should be {string}")
     public void the_user_s_full_name_should_be(String expectedCustomerName) {
-        BrowserUtils.waitForTime(1);
         Assert.assertEquals("The full name displayed on the page does not match the expected value. Expected: " + expectedCustomerName + ", but found: " + customer.getUserDetailsName(),
                 expectedCustomerName,customer.getUserDetailsName());
     }
